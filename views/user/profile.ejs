@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Profile Details</h1>
+        <div class="profile-image">
+            <img src="https://via.placeholder.com/100" alt="Profile Picture">
+        </div>
+        <div class="details">
+            <p><span class="label">Name:</span> <span class="value"><%= currUser.username %></span></p>
+            <p><span class="label">Email:</span> <span class="value"><%= currUser.email %></span></p>
+            <p><span class="label">Phone:</span> <span class="value"><%= currUser.phone_no %></span></p>
+            <p><span class="label">Address:</span> <span class="value"><%= currUser.address %></span></p>
+        </div>
+        <a href="/profile/profile_edit" class="edit-btn">Edit Profile</a>
+    </div>
+</body>
+</html>
