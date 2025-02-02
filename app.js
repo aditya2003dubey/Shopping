@@ -24,7 +24,7 @@ const {storage} = require("./cloudConfig");
 const upload = multer({ storage });
 const flash = require("connect-flash");
 
-const wrapAsync = require("./utils/wrapAsync.js");
+const wrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 const {isLoggedIn} = require("./middleware.js");
