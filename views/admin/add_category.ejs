@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Page</title>
+    <title>E Commerce Website</title>
     <style>
         /* General Reset */
         body, html {
@@ -87,7 +87,9 @@
             resize: none;
             height: 100px;
         }
-
+        a{
+            text-decoration: none;
+        }
         .btn {
             width: 100%;
             padding: 10px;
@@ -98,6 +100,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
+            margin-bottom: 1rem;
         }
 
         .btn:hover {
@@ -127,23 +130,34 @@
         <form  action="/add_category" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="photo">Photo</label>
-                <input type="file" id="photo" name="image">
+                <input type="file" id="photo" name="image" required>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <select id="category" name="type">
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="home">Home & Kitchen</option>
-                    <option value="beauty">Beauty</option>
-                </select>
+                <select id="category" name="type" required>
+                    <option value="Best Selling">Best Selling</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Home & Kitchen">Home & Kitchen</option>
+                    <option value="Beauty Wellness & More">Beauty Wellness & More</option>
+                    <option value="Women's Wastern Wear">Women's Wastern Wear</option>
+                    <option value="Men's Fashion">Men's Fashion</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Appliances">Appliances</option>
+                    <option value="Women's Footwear">Women's Footwear</option>
+                    <option value="Toys & Stationery">Toys & Stationery</option>
+                    <option value="Men's Footwear">Men's Footwear</option>
+                    <option value="Women's Accessories">Women's Accessories</option>
+                    <option value="Men's Accessories">Men's Accessories</option>
+                    <option value="Kids Corner">Kids Corner</option>
+                 </select>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Enter product description"></textarea>
+                <textarea id="description" name="description" placeholder="Enter product description" required></textarea>
             </div>
             <!-- <input type="text" name="lala"> -->
             <button type="submit" class="btn">Submit</button>
+            <a href="/" class="btn">Back</a>
         </form>
     </div>
 </body>

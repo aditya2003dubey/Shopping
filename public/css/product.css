@@ -18,9 +18,9 @@ header {
 }
 
 #sub-header{
-    background: linear-gradient(90deg, #501ce9, #ff758c);
+    /* background: linear-gradient(90deg, #501ce9, #ff758c); */
     color: #fff;
-    margin: 3rem 4rem 0.5rem 4rem;
+    /* margin: 1rem; */
     padding: 0.5rem 0;
     text-align: center;
     border-radius: 0.5rem;
@@ -133,11 +133,19 @@ nav a:hover {
     margin-left: 0.5rem;
     color: #777;
 }
-
+.size, .color{
+    font-size: 1rem;
+}
 .price {
     font-size: 1.5rem;
     color: #ff758c;
     margin-bottom: 1rem;
+}
+.button{
+    display: flex;
+}
+.button button{
+    margin: 0.5rem;
 }
 
 .add-to-cart {

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #ff6f61;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit {
+            background: #ff6f61;
+            color: #fff;
+        }
+
+        .btn-submit:hover {
+            background: #ff4c3b;
+        }
+
+        .btn-reset {
+            background: #ddd;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #bbb;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Order Details</h2>
+        <form action="/product/<%=product._id%>/buy/<%= currUser._id %>" method="post" >
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required 
+                <% if(currUser){ %>
+                    value="<%=currUser.full_name%>"
+                     <% } %> >
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required
+                <% if(currUser){ %>
+                    value="<%=currUser.email%>"
+                     <% } %>>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required
+                <% if(currUser){ %>
+                    value="<%=currUser.phone_no%>"
+                     <% } %>>
+            </div>
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <textarea id="address" name="address" placeholder="Enter your shipping address" required><% if(currUser){ %><%=currUser.address%> <% } %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="size">Size</label>
+                <input type="text" id="size" name="size"  placeholder="Enter Size" required value="N/A">
+            </div>
+            <div class="form-group">
+                <label for="color">Colour</label>
+                <input type="text" id="color" name="color"  placeholder="Enter Colour" required value="N/A">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity" required value="1">
+            </div>
+        
+            <div class="form-group">
+                <button type="submit" class="btn btn-submit">Proceed To Checkout</button>
+                <button class="btn btn-reset"><a href="/product/<%= product._id %>">Back</a></button>
+            </div>
+               
+            </div>
+        </form>
+    </div>
+    <script>
+        function func(e){
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>

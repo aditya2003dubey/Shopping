@@ -2,17 +2,20 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
-    image: {
+    profile_photo: {
         url: String,
         filename: String,
+    },
+    full_name: {
+        type: String,
     },
     email: {
         type: String,
         required: true
     },
-    name: {
+    user_name: {
         type: String,
-        // required: true
+        required: true
         },
     phone_no: {
         type: Number,

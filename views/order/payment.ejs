@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .razorpay-payment-button {display: none;}
+</style>
+<body>
+    <form action="/product/buy/online/<%= order._id %>" method="POST">
+        <script
+           src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_tcFOZWeJ4AXxL9" 
+            data-amount="<%= total * 100 %>"
+            data-currency="INR"
+            data-id="<%= order._id %>"
+            data-buttontext="Pay with Razorpay"
+            data-name="DMS Store"
+            data-description="We are dedicated to providing you with the best products and services. Our mission is to deliver quality and satisfaction to all our customers."
+            data-image="https://example.com/your_logo.jpg"
+            data-prefill.name="<%= order.name %>"
+            data-prefill.email="<%= order.email %>"
+            data-theme.color="#F37254"
+        ></script>
+        <input type="hidden" custom="Hidden Element" name="hidden"/>
+        </form>
+        <script>
+           document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector('.razorpay-payment-button').click();
+});
+
+        </script>
+    </body>
+    </html>

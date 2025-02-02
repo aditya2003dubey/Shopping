@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const reviewSchema = new Schema({
+const querySchema = new Schema({
     name: String,
     email: String,
-    review: String,
-    rating: Number,
+    phone: Number,
+    message: String,
     date: {
         type: Date,
         default: Date.now(),
     },
-    product:{
+    user:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product"
+        ref: "User"
     },
     });
-    const Review = mongoose.model("Review", reviewSchema);
-    module.exports = Review;
+    const Query = mongoose.model("Query", querySchema);
+    module.exports = Query;

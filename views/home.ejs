@@ -1,55 +1,20 @@
-<% layout("/layout/boilerplate") -%>
-    <header>
-        <h1>E-commerce Store</h1>
-        <span class="header-links">
-                <% if(!currUser){ %>
-            <a href="/login">Log-in</a>
-            <a href="/signup">Sign-up</a>
-            <% }  %>
-            <% if(currUser){ %>
-            <a href="/logout">Log-Out</a>
-            <% } %>
-        </span>
-    </header>
-    <nav>
-      <div class="logo">E-Shop</div>
-      <div class="search-bar">
-        <input type="text" id="search" placeholder="Search products...">
-        <button onclick="searchProducts()">Search</button>
-    </div>
-        <div>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/cart">Cart</a>
-            <span class="profile">
-                <a href="/profile">
-                <i class="bi bi-person-circle"></i>
-            </a>
-            <% if(currUser) {%>
-            <% if(currUser._id == "678e77b54236dd79787dd74c"){ %>
-            <a href="/add_category">
-                <i class="bi bi-plus-circle"></i>
-            </a>
-            <% } %>
-            <% } %>
-        </span>
-        </div>
-    </nav>
+<% layout("/layout/boilerplate") -%>    
+
     <section class="hero">
         <h1>Welcome to Our Store!</h1>
         <p>Find the best products at unbeatable prices.</p>
     </section>
     <section class="products">
+        <h3 id="no-results" style="display: none; text-align: center;">No products found</h3>
         <% for(category of allCategory){ %>
                 <div class="product">
                     <a href="/category/<%= category._id %>">
-                    <img src="<%= category.image.url %>">
+                    <img src="<%= category.image.url %>" alt="<%= category.type %>">
                         </a>
                     <h3><%= category.type %></h3>
                     <p><%= category.description %></p>
                     <% if(currUser) {%>
-                        <% if(currUser._id == "678e77b54236dd79787dd74c"){ %>
+                        <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
                      <form action="/category/<%=category._id%>?_method=delete" method="post">
                     </button type="submit" class="btn"><button>
                     </form>
@@ -58,22 +23,36 @@
                 </div>       
             <% } %>
     </section>
-    <footer>
-        <p>&copy; 2025 My E-commerce Store. All rights reserved.</p>
-    </footer>
-
+    
     <script>
-        function searchProducts() {
-            const query = document.getElementById('search').value.toLowerCase();
-            const products = document.querySelectorAll('.product');
+       function searchProducts() {
+    const query = document.getElementById('search').value.toLowerCase().trim();
+    const products = document.querySelectorAll('.product');
+    const noResultsMessage = document.getElementById('no-results');
 
-            products.forEach(product => {
-                const productName = product.querySelector('h3').innerText.toLowerCase();
-                if (productName.includes(query)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
+    if (query === "") {
+        location.reload(); // Refresh the page when input is empty
+        return;
+    }
+
+    let found = false;
+
+    products.forEach(product => {
+        const productName = product.querySelector('h3').innerText.toLowerCase();
+        if (productName.includes(query)) {
+            product.style.display = 'block';
+            found = true;
+        } else {
+            product.style.display = 'none';
         }
+    });
+
+    // Show "No products found" message only if no product matches
+    noResultsMessage.style.display = found ? 'none' : 'block';
+}
+
+// Attach event listener to input field for real-time search
+document.getElementById('search').addEventListener('input', searchProducts);
+
+
     </script>

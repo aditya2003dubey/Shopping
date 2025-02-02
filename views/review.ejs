@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Form</title>
+    <title>E-Commerce Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,7 +80,11 @@
         .star-rating label:hover ~ label {
             color: #ffa534;
         }
-
+        a{
+            text-decoration: none;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
         .submit-btn {
             display: block;
             width: 100%;
@@ -110,15 +115,16 @@
         <h2>Product Review</h2>
         <div class="form-group">
             <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required value="<%= currUser.full_name %>" >
         </div>
         <div class="form-group">
             <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required value="<%= currUser.email %>" >
         </div>
         <div class="form-group">
             <label for="rating">Your Rating</label>
             <div class="star-rating">
+                
                 <input type="radio" id="star1" name="rating" value="1">
                 <label for="star1">&#9733;</label>
 
@@ -133,6 +139,7 @@
 
                 <input type="radio" id="star5" name="rating" value="5">
                 <label for="star5">&#9733;</label>
+                
             </div>
         </div>
         <div class="form-group">
@@ -140,6 +147,7 @@
             <textarea id="review" name="review" rows="4" placeholder="Write your review here..." required></textarea>
         </div>
         <button type="submit" class="submit-btn">Submit Review</button>
+        <a class="submit-btn" href="/product/<%= id %>"> Back</a>
     </form>
 </body>
 </html>
