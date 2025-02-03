@@ -116,7 +116,8 @@ passport.authenticate("local",{
 }),
 async (req,res)=>{
     req.flash("success","Welcome to Our Website");
-    res.redirect(res.locals.redirectUrl);
+    let redirectUrl = res.locals.redirectUrl || "/";
+    res.redirect(redirectUrl);
 })
 
 app.get("/logout",(req,res,next)=>{
