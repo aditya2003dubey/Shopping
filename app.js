@@ -377,6 +377,9 @@ app.get("/legal_policies/returns_policy",(req,res)=>{
     res.render("Legal_Policies/returns_policy.ejs");
     })
 
+app.get("/legal_policies/shipping_policy",(req,res)=>{
+        res.render("Legal_Policies/shipping_policy.ejs");
+        })    
 // buying api
 
 app.get("/product/cart/buy_all",isLoggedIn,async (req,res)=>{
