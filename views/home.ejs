@@ -4,8 +4,10 @@
         <h1>Welcome to Our Store!</h1>
         <p>Find the best products at unbeatable prices.</p>
     </section>
+    <h3 style="text-align: center; margin: 1rem; font-weight: 600;" ;>Top Categories : </h3>
     <section class="products">
         <h3 id="no-results" style="display: none; text-align: center;">No products found</h3>
+        
         <% for(category of allCategory){ %>
                 <div class="product">
                     <a href="/category/<%= category._id %>">
