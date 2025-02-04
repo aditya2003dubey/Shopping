@@ -23,6 +23,7 @@ const multer = require("multer");
 const {storage} = require("./cloudConfig");
 const upload = multer({ storage });
 const flash = require("connect-flash");
+const MongoStore = require("connect-mongo");
 
 const wrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
@@ -39,6 +40,19 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+
+const store = MongoStore.create({
+    mongoUrl: "mongodb+srv://adityadubeypc:IJWj8RNCjasI0Kk3@cluster0.nyucr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    crypto: {
+      secret: process.env.SECRET,
+    },
+    touchAfter: 24*3600,
+  });
+  
+  store.on("error",() =>{
+    console.log("ERROR in MONGO SESSION STORE",err);
+  });
+
 
 const sessionOptions = {
 secret: "mysecretcode",
@@ -73,7 +87,15 @@ app.use((req,res,next)=>{
 //     res.render("error_page.ejs");
 //     next();
 // })
+main()
+.then(() =>{
+    console.log("connection succesfull")
+})
+.catch((err)=>console.log(err));
 
+async function main(){
+    await mongoose.connect("mongodb+srv://adityadubeypc:IJWj8RNCjasI0Kk3@cluster0.nyucr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+};
 
 app.get("/",async (req,res)=>{
     let countCart =await Cart.countDocuments();
@@ -554,14 +576,6 @@ app.delete("/product/buy_all/:id",async (req,res)=>{
         res.status(statusCode).render("error.ejs",{message});
       })
 
-main()
-.then(() =>{
-    console.log("connection succesfull")
-})
-.catch((err)=>console.log(err));
 
-async function main(){
-    await mongoose.connect("mongodb+srv://adityadubeypc:IJWj8RNCjasI0Kk3@cluster0.nyucr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-};
 
 app.listen(8080);
