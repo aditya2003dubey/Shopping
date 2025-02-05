@@ -44,7 +44,7 @@ app.use(methodOverride('_method'));
 const store = MongoStore.create({
     mongoUrl: "mongodb+srv://adityadubeypc:IJWj8RNCjasI0Kk3@cluster0.nyucr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     crypto: {
-      secret: process.env.SECRET,
+      secret: "mysecretcode",
     },
     touchAfter: 24*3600,
   });
