@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Query Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #2980b9;
+            color: white;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .query-card {
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .query-card h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .query-card p {
+            margin: 5px 0;
+        }
+        .button {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #2ecc71;
+        }
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Query Dashboard</h1>
+    </header>
+    
+    <div class="container">
+        <div class="query-card">
+            <h3>Customer Queries</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Repeat the below row for each query -->
+                <% for(query_item of query){ %>
+                    <tr>
+                        <td><%= query_item.name %></td>
+                        <td><%= query_item.email %></td>
+                        <td><%= query_item.phone %></td>
+                        <td><%= query_item.message %></td>
+                    </tr>
+                    <% } %>
+                    <!-- End of query row -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

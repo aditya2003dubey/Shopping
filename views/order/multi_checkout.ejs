@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(120deg, #84fab0, #8fd3f4);
+      padding: 20px;
+    }
+
+    .checkout-container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .checkout-container h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .order-summary {
+      border-top: 2px solid #eee;
+      border-bottom: 2px solid #eee;
+      margin: 20px 0;
+      padding: 15px 0;
+    }
+
+    .order-summary div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .order-summary div:last-child {
+      margin-bottom: 0;
+    }
+
+    .order-summary span {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .order-summary span.total {
+      font-weight: bold;
+      font-size: 18px;
+      color: #000;
+    }
+
+    .checkout-button {
+      display: inline-block;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #ff8a00, #e52e71);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .cancel-button{
+        display: inline-block;
+      padding: 12px 20px;
+      background-color: rgba(255, 0, 0, 0.656);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .checkout-button:hover {
+      background: linear-gradient(90deg, #e52e71, #ff8a00);
+    }
+
+    @media (max-width: 768px) {
+      .checkout-container {
+        padding: 15px;
+      }
+
+      .order-summary span {
+        font-size: 14px;
+      }
+
+      .checkout-button {
+        font-size: 12px;
+        padding: 10px 18px;
+      }
+      .cancel-button {
+        font-size: 12px;
+        padding: 10px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>Order Total</h1>
+
+    <div class="order-summary">
+      <div>
+        <span>Subtotal</span>
+        
+        <span><%= sumOfAll %></span>
+      </div>
+      <div>
+        <span>Shipping</span>
+        <span>00.00</span>
+      </div>
+      <div>
+        <span>Tax</span>
+        <span>00.00</span>
+      </div>
+      <div>
+        <span class="total">Total</span>
+        <span class="total"><%= sumOfAll %></span>
+      </div>
+    </div>
+
+     <div style="display: flex; justify-content: center;">
+      <!-- <button class="checkout-button"><a href="/product/buy_all/online/<%= orders[0]._id %>" style="color: #fff;">Pay Online</a></button> -->
+     <button class="checkout-button"><a href="/product/buy/<%= orders[0]._id %>" style="color: #fff;">Pay On Delivery</a></button>
+      &nbsp;
+    <form action="/product/buy_all/<%= orders[0]._id %>?_method=delete" method="post"> 
+    <button class="cancel-button">Cancel Order</button></form></div>
+      <br>
+    <span><strong>Note : </strong>Do Not Refresh the Page, If the popup will show click cancel option otherwise the duplicatte data will be saved...</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fc;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .order-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: white;
+            text-align: center;
+        }
+
+        .status-shipped {
+            background-color: blueviolet;
+        }
+
+        .status-pending {
+            background-color: #f39c12;
+        }
+
+        .status-completed {
+            background-color: #27ae60;
+        }
+
+        .status-cancelled {
+            background-color: #e74c3c;
+        }
+
+        .order-details h2,
+        .product-list h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        table th,
+        table td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #eaeaea;
+        }
+
+        table th {
+            background-color: #f8f9fa;
+            color: #555;
+        }
+
+        .product-list img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .actions button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .actions .approve {
+            background-color: #27ae60;
+        }
+
+        .actions .reject {
+            background-color: #e74c3c;
+        }
+
+        .actions a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .order-status {
+                margin-top: 10px;
+            }
+
+            .actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order <%= order._id %></h1>
+            <span class="order-status status-pending"><%= order.status %></span>
+        </div>
+
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Customer Name</th>
+                        <td><%= order.name %></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><%= order.email %></td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td><%= order.phone %></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td><%= order.address %></td>
+                    </tr>
+                    <tr>
+                        <th>Payment Mode</th>
+                        <td><%= order.payment_mode %></td>
+                    </tr>
+                    <tr>
+                        <th>Order Date</th>
+                        <td><%= order.date %></td>
+                    </tr>
+                    <% if(order.tracking_id){ %>
+                    <tr>
+                        <th>Tracking Id</th>
+                        <td><%= order.tracking_id %></td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+
+        <div class="product-list">
+            <h2>Products</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Size</th>
+                            <th>Colour</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="<%= order.product.image.url %>" alt="Product"></td>
+                            <td><%= order.product.name %></td>
+                            <td><%= order.size %></td>
+                            <td><%= order.color %></td>
+                            <td><%= order.quantity %></td>
+                            <td><%= order.product.price %></td>
+                            <td><%= order.total %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="approve"><a href="/admin/<%= currUser._id %>/update_order/<%= order._id %>">Update Order</a></button>
+            <% if(order.status != "cancelled") {%>
+            <form action="/admin/<%= currUser._id %>/cancel_order/<%= order._id %>" method="post">
+                <button class="reject" type="submit">Cancel Order</button>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+</html>

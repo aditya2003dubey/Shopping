@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to Cart Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-group select,
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .form-group select:focus,
+    .form-group button:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .color-swatch:hover,
+    .color-swatch.selected {
+      border-color: #007bff;
+    }
+
+    input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #8a4efb;
+            box-shadow: 0 0 5px rgba(138, 78, 251, 0.5);
+        }
+
+
+    .add-to-cart {
+      background: #007bff;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s;
+    }
+
+    .add-to-cart:hover {
+      background: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Add to Cart</h2>
+    <form  action="/cart/<%= product._id %>" method="post">
+        <div class="form-group">
+            <label for="product-name">Product Name: <%= product.name %></label>
+        </div>
+      <div class="form-group">
+        <label for="size">Select Size:</label>
+        <input type="text" id="size" name="size" value="N/A">
+      </div>
+
+      <div class="form-group">
+        <label for="color">Select Color:</label>
+        <input type="text" id="color" name="color" value="N/A">
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Select Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" required>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="add-to-cart">Add to Cart</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const colorOptions = document.querySelectorAll('.color-swatch');
+      const selectedColorInput = document.getElementById('selectedColor');
+
+      colorOptions.forEach(swatch => {
+        swatch.addEventListener('click', () => {
+          colorOptions.forEach(s => s.classList.remove('selected'));
+          swatch.classList.add('selected');
+          selectedColorInput.value = swatch.getAttribute('data-color');
+        });
+      });
+
+      const form = document.getElementById('addToCartForm');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const size = document.getElementById('size').value;
+        const color = selectedColorInput.value;
+
+        if (size && color) {
+          alert(`Added to cart: Size - ${size}, Color - ${color}`);
+        } else {
+          alert('Please select both size and color!');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

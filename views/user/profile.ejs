@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Profile Details</h1>
+        <div class="profile-image">
+            <img src="<%= currUser.profile_photo.url %>" alt="Profile Picture">
+        </div>
+        <% if(currUser) {%>
+        <div class="details">
+            <p><span class="label">Name:</span> <span class="value"><%= currUser.full_name %></span></p>
+            <p><span class="label">User Name:</span> <span class="value"><%= currUser.user_name %></span></p>
+            <p><span class="label">Email:</span> <span class="value"><%= currUser.email %></span></p>
+            <p><span class="label">Phone:</span> <span class="value"><%= currUser.phone_no %></span></p>
+            <p><span class="label">Address:</span> <span class="value"><%= currUser.address %></span></p>
+        </div>
+
+        <a href="/profile/profile_edit" class="edit-btn" style="margin-bottom: 0.5rem;">Edit Profile</a>
+        <a href="/admin/<%= currUser._id %>/all_order_detail" class="edit-btn" style="margin-bottom: 0.5rem;">Order Details</a>
+        <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
+        <a href="/all_query" class="edit-btn" style="margin-bottom: 0.5rem;">All Query</a>
+        <% } %>
+        <a href="/" class="edit-btn">Back</a>
+        <% } %>
+        
+    </div>
+</body>
+</html>

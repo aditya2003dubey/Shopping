@@ -1,0 +1,23 @@
+<style>
+    .flash{
+        text-align: center;
+        margin: 0.5rem 10rem;
+        padding: 0.3rem;
+    }
+</style>
+
+
+<% if( success && success.length ) {%>
+    <div class="alert alert-success alert-dismissible fade show center flash" role="alert">
+        <p><%= success %></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+    
+      <% if( error && error.length ) {%>
+        <div class="alert alert-success alert-dismissible fade show flash" role="alert">
+            <p><%= error %></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+      

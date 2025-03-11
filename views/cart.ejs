@@ -1,0 +1,194 @@
+<% layout("/layout/boilerplate") -%>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.item-details {
+    flex: 1;
+    margin-left: 15px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+p {
+    margin: 5px 0;
+    color: #7f8c8d;
+}
+
+.quantity {
+    width: 60px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.remove-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+.checkout-summary {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-item p {
+    font-size: 18px;
+}
+
+.subtotal, .shipping, .total {
+    font-weight: bold;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+    background-color: #2ecc71;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item-details {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .checkout-summary {
+        margin-top: 20px;
+    }
+
+    .checkout-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+</style>
+
+    <div class="container">
+        <h1 class="header">Checkout</h1>
+        <div class="cart">
+            <% for(cart of carts_array) { %>
+            <div class="cart-item">
+                <a href="/product/<%= cart.product_id %>">
+                <img src="<%= cart.image.url %>" alt="Product Image">
+            </a>
+                <div class="item-details">
+                    <h3><%= cart.name %></h3>
+                    <div>
+                    <p>colour: <%= cart.color %></p>
+                    <p>Size: <%= cart.size %></p>
+                </div>
+                    <p>Price: <%= cart.price %></p>
+                    <h3>Quantity: <%= cart.quantity %></h3>
+                    <!-- <input type="number" value="<%= cart.quantity %>" class="quantity" name="quantity" required> -->
+                </div>
+                <form action="/cart/<%= cart._id %>?_method=delete" method="post">
+                <button class="remove-btn">Remove</button>
+            </form>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="checkout-summary">
+            <div class="summary-item">
+                <p>Subtotal:</p>
+                <p class="subtotal">
+                    <% let sum = 0 %>
+                    <% for (cart of carts_array) { %>
+                        <% sum = (cart.price*cart.quantity) + sum %>
+                        <% } %>
+                        <%= sum %>
+                </p>
+            </div>
+            <div class="summary-item">
+                <p>Shipping:</p>
+                <p class="shipping"> 00.00</p>
+            </div>
+            <div class="summary-item">
+                <p>Total:</p>
+                <p class="total"><%= sum %>.00</p>
+            </div>
+
+            <a href="/product/cart/buy_all"><button class="checkout-btn">Proceed to Checkout</button></a>
+        </div>
+    </div>
+
+    <script >
+
+
+    </script>

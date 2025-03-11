@@ -1,0 +1,156 @@
+<% layout("/layout/boilerplate") -%>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem 2rem 2rem;
+}
+
+.product {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    background: #fff;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product h3 {
+    margin: 0.5rem;
+    color: #333;
+}
+
+.product p {
+    margin: 0.5rem;
+    color: #777;
+}
+
+.product button {
+    display: block;
+    width: 90%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    background: #ff7eb3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product button:hover {
+    background: #ff758c;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+    margin-top: 2rem;
+}
+a{
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        margin-top: 0.5rem;
+    }
+}
+</style>
+<h3 style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Category Name: <%= category.type %>
+    
+        
+        <% if(currUser) {%>
+            <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
+            <li class="nav-item"><a href="/add_product/<%= category_id%>" class="nav-link" style="color: black;">
+                <i class="bi bi-plus-circle"></i>
+            </a></li>
+            <% } %>
+            <% } %>
+        </h3>
+
+    <section class="products">
+        <h3 id="no-results" style="display: none; text-align: center;">No products found</h3>
+        <% for(product of products_array){ %>
+            
+                <div class="product">
+                    <a href="/product/<%= product._id %>">
+                    <img src="<%= product.image.url %>">
+                </a>
+                    <h3><%= product.name %></h3>
+                    <p>&#8377; <%= product.price.toLocaleString("en-In") %></p>
+                    <form action="/cart/<%= product._id %>">
+                        <button class="add-to-cart" id="add-cart" type="submit">Add to Cart</button>
+                    </form>
+                    <% if(currUser) {%>
+                        <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
+                    <form action="/product/<%=product._id%>?_method=delete" method="post">
+                    </button type="submit" class="btn"><button>
+                        <% } %>
+                        <% } %>
+                    </form>
+                </div>
+            <% } %>
+    </section>
+
+
+    <script>
+        function searchProducts() {
+    const query = document.getElementById('search').value.toLowerCase().trim();
+    const products = document.querySelectorAll('.product');
+    const noResultsMessage = document.getElementById('no-results');
+
+    if (query === "") {
+        location.reload(); // Refresh the page when input is empty
+        return;
+    }
+
+    let found = false;
+
+    products.forEach(product => {
+        const productName = product.querySelector('h3').innerText.toLowerCase();
+        if (productName.includes(query)) {
+            product.style.display = 'block';
+            found = true;
+        } else {
+            product.style.display = 'none';
+        }
+    });
+
+    // Show "No products found" message only if no product matches
+    noResultsMessage.style.display = found ? 'none' : 'block';
+}
+
+// Attach event listener to input field for real-time search
+document.getElementById('search').addEventListener('input', searchProducts);
+
+
+    </script>

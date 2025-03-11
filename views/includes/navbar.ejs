@@ -1,0 +1,86 @@
+<style>
+  nav{
+    margin-bottom: 2rem;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg sticky-top" style="background-color: #ff758c" ;>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/about" style="color: rgb(184, 7, 57) !important;"><i><b> DMS-Store </b></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active " style="color: white;" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about" class="nav-link"  style="color: white;">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="/contact" class="nav-link"  style="color: white;">Contact</a>
+          </li>
+          <li class="nav-item">
+              <a href="/cart"   class="nav-link" style="color: white;">Cart</a>
+          </li>
+
+
+          <%  if(currUser) {%>
+            <li class="profile nav-item">
+            <div class="btn-group">
+              <button type="button" class="btn"><a href="/profile"><i class="bi bi-person-circle"></i></a></button>
+              <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                <% if(!currUser){ %>
+                 <li> <a class="dropdown-item nav-link" href="/login">Log-in</a></li>
+                  <li><a class="dropdown-item nav-link" href="/signup">Sign-up</a></li>
+                  <% }  %>
+                  <% if(currUser){ %>
+                  <li><a class="dropdown-item nav-link" href="/logout">Log-Out</a></li>
+                  <% } %>
+              </ul>
+            </div>
+          </li>
+         <% } %>
+              
+
+            <% if(!currUser) {%>
+              <li class="profile nav-item">
+                <div class="btn-group">
+                  <button type="button" class="btn"><a href="/profile"><i class="bi bi-person-circle"></i></a></button>
+                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <% if(!currUser){ %>
+                     <li> <a class="dropdown-item nav-link" href="/login">Log-in</a></li>
+                      <li><a class="dropdown-item nav-link" href="/signup">Sign-up</a></li>
+                      <% }  %>
+                      <% if(currUser){ %>
+                      <li><a class="dropdown-item nav-link" href="/logout">Log-Out</a></li>
+                      <% } %>
+                  </ul>
+                </div>
+              </li>
+            <% } %>
+
+            
+            <% if(currUser) {%>
+            <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
+            <li class="nav-item"><a href="/add_category" class="nav-link" style="color: white;">
+                <i class="bi bi-plus-circle"></i>
+            </a></li>
+            <% } %>
+            <% } %>
+            
+        </ul>
+        <div class="search-bar d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" id="search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit" onclick="searchProducts()" style="color: white;">Search</button>
+        </div>
+      </div>
+    </div>
+  </nav>
