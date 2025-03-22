@@ -225,7 +225,9 @@
         </div>
 
         <div class="actions">
+            <% if(currUser._id == "678fac98c56aa322edd06525"){ %>
             <button class="approve"><a href="/admin/<%= currUser._id %>/update_order/<%= order._id %>">Update Order</a></button>
+            <% } %>
             <% if(order.status != "cancelled") {%>
             <form action="/admin/<%= currUser._id %>/cancel_order/<%= order._id %>" method="post">
                 <button class="reject" type="submit">Cancel Order</button>

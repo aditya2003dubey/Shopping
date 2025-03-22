@@ -164,8 +164,10 @@ footer {
                 <button class="add-to-cart" id="add-cart" type="submit">Add to Cart</button>
             </form>
             <a href="/product/<%= product._id %>/buy" style="color: #fff;"><button class="add-to-cart">Order Now</button></a>
-            </div>
-            </div>
+           
+            <a class="share-button" id="share-product"><i class="bi bi-share-fill"></i></a>
+        </div>
+        </div>
         </div>
 
         <div class="reviews">
@@ -190,4 +192,19 @@ footer {
         const res = await fetch(`/cart/${product._id}`,{method:"post"})
         console.log("click")
     });
+
+    const shareButton = document.querySelector("#share-product");
+        shareButton.addEventListener("click", function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '<%= product.name %>',
+                    text: 'Check out this product: <%= product.name %>',
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Thanks for sharing!');
+                }).catch(console.error);
+            } else {
+                alert('Sharing is not supported by your browser.');
+            }
+        });
 </script>
