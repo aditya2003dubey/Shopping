@@ -109,25 +109,28 @@ app.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
 });
 
-app.post("/signup",async (req,res,next)=>{
+app.post("/signup",
+wrapAsync(async (req,res)=>{
     try{
     const {username,email,password} = req.body;
-    const user = new User({username,email});
-    const registeredUser = await User.register(user,password);
-    console.log(registeredUser);
+    const newUser = new User({username,email});
+    const registeredUser = await User.register(newUser,password);
+    // console.log(registeredUser);
     req.login(registeredUser,(err)=>{
         if(err){
-             return next(err);
+            return next(err);
         }
         req.flash("success","Welcome to Our Website");
         res.redirect("/");
-    })
+    });
 }
 catch(err){
+    // console.log(err)
     req.flash("error",err.message);
     res.redirect("/signup")
    } 
 })
+)
 
 app.get("/login",(req,res)=>{
     res.render("user/login.ejs");
